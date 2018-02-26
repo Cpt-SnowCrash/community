@@ -1,0 +1,110 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container " >
+
+
+
+<div class="row">
+
+
+<div class="col-md-8 panel panel-default" style="padding: 30">
+
+
+
+<div class="row">
+
+<div class="col-md-1" style="">
+<div style="font-size: 250%;  color: white; width: 50; background-color:{{item.posted_by.userprofile.all.0.bg}};height: 50; text-align: center;">
+{{item.posted_by|make_list|first|capfirst }}
+</div>
+</div>
+
+
+<div class="col-md-1 " style="">
+
+<div class="" style="padding: 5">
+
+{% if request.user in item.voters.all %}
+
+<span style="color: red" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{item.votes}}</span>
+
+{% else %}
+<a href="/upvote/{{item.post_url}}/"><span style="color: grey" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{item.votes}}</span></a>
+
+{% endif %}
+
+</div>
+</div>
+
+
+<div class="col-md-10" >
+<a href={{item.url}} style="color: grey; font-size: 175%; ">{{item.title}}</a><br>
+
+<span style="opacity: 0.7">Posted by <a style="color: grey" href="/profile/{{item.posted_by.userprofile.all.0.uid}}"> {{item.posted_by}}</a> {{item.created|timesince}} ago | {{item.comments.all.count}} comments</span><br><br>
+
+</div>
+
+</div>
+
+
+  <form action="/submit_comment/{{item.post_url}}" method="post">
+    {% csrf_token %}
+
+<div class="form-group">
+  <label style="color: grey" for="comment">Discussion:</label>
+  <textarea class="form-control" rows="3" id="content" name="content" placeholder="What do you think about this post.. "></textarea>
+</div>
+
+<button class="btn btn-default" type="submit">Submit</button>
+
+</form>
+
+{% for c in item.comments.all reversed %}
+
+<div class="row">
+
+<div class="col-md-1">
+<div style="font-size: 150%;  color: white; width: 30; height: 30;  margin-bottom: 20%;background-color:{{c.posted_by.userprofile.all.0.bg}}; text-align: center;">
+{{c.posted_by|make_list|first|capfirst }}
+ </div>
+</div>
+<div class="col-md-11">
+ <b> 
+
+<a style="color: grey" href="/profile/{{c.posted_by.userprofile.all.0.uid}}">{{c.posted_by}}</a></b> wrote {{c.created|timesince}} ago:<br>
+{{c.content}} 
+</div>
+</div><!-- for row-->
+
+<br>
+
+{% endfor %}
+
+</div> <!-- for col-md-8-->
+
+
+<div class="col-md-3 panel panel-default"  style="padding: 20; margin-left:5">
+
+<h3>Unsyntax</h3>
+
+Unsyntax is community for geeks, developers, nerds, hackers and software programmers</div>
+
+</div>
+
+
+
+
+
+</div> <!-- for row -->
+
+
+
+
+
+</div> <!-- for container -->
+
+
+{% endblock %}

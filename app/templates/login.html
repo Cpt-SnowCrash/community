@@ -1,0 +1,26 @@
+  
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container panel panel-default " style="padding-left: 25%; padding-right: 25%; color: grey" >
+
+  <h3>Login</h3><br><br>
+  <form method="post">
+    {% csrf_token %}
+
+            <div class="form-group" style="">
+          <input required style=""   type="text" class="form-control" name="username" placeholder="username">
+        </div>
+
+        <div class="form-group" style="">
+          <input required  type="password" class="form-control" name="password" placeholder="password">
+        </div>
+   
+
+
+    <button class="btn btn-default" type="submit">Login</button>
+  </form><br><br>
+ </div>
+
+  {% endblock %}

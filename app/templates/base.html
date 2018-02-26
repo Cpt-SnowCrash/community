@@ -1,0 +1,80 @@
+<html>
+<head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="shortcut icon" type="image/png" href="https://i.imgur.com/cvhxH8m.png?1"/>
+
+</head>
+
+<body style="background-color: #f1f1f1;">
+<div class="container">
+
+
+<nav class="navbar navbar-default" style="background-color: white">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/" style="padding: 0; padding-right: 10; padding-left: 10; padding-top: 10"><b style="color: #2196F3; font-size: 100%">UnSyntax</b></a>
+    </div>
+    <ul class="nav navbar-nav" >
+      
+      <li style=""><a  class="btn btn-default" style="padding: 5; margin-top: 7; width: 100;" href="/submit/">Submit</a></li>
+
+     
+      
+    </ul>
+
+       <ul class="nav navbar-nav navbar-right">
+
+             {% if user.is_authenticated %}
+
+         <li  style=""><a  style="padding: 5; margin-top: 7; width: 100; " href="/logout/">Logout</a></li>
+
+         {% else %}
+
+                  <li style=""><a   style="padding: 5; margin-top: 7; width: 100;" href="/signup/">Signup</a></li>
+                    <li style=""><a   style="padding: 5; margin-top: 7; width: 100;" href="/login/">Login</a></li>
+      
+      {% endif %}
+
+
+       </ul>
+  </div>
+</nav>
+
+
+
+<a  "> </a> <hr>
+
+
+
+{% block content %}{% endblock content %}
+	
+
+<!--
+<hr>
+	Sponsored By <a href="https://www.enpointer.com">Enpointer</a>
+
+
+	<div class="panel panel-default" style="padding: 30">
+
+	footer
+
+	</div>
+	-->
+
+
+</div>
+
+
+
+</body>
+
+</html>

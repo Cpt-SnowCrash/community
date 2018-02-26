@@ -1,0 +1,102 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container " >
+
+
+
+<div class="row">
+
+
+<div class="col-md-8 panel panel-default" style="padding: 30">
+
+<a style="color: grey" href="/"><span>Popular</span></a> |<a style="color: grey" href="/?q=newest"> <span>Newest</span></a> <br><br>
+
+{% for i in items %}
+
+<div class="row">
+
+<div class="col-md-1" style="padding-top: 10">
+
+<div style="font-size: 150%;  color: white; width: 30; background-color:{{i.posted_by.userprofile.all.0.bg}}; height: 30; text-align: center;">
+{{i.posted_by|make_list|first|capfirst }}
+</div>
+</div>
+
+
+<div class="col-md-1 " style="">
+
+
+
+<div class="" style="padding: 5">
+
+{% if request.user in i.voters.all %}
+
+<span style="color: red" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{i.votes}}</span>
+
+{% else %}
+<a href="/upvote/{{i.post_url}}/"><span style="color: grey" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{i.votes}}</span></a>
+
+{% endif %}
+
+
+
+
+
+</div>
+</div>
+
+
+<div class="col-md-10"  style="padding-top: 5">
+<a href={{i.url}} style="color: grey; font-size: 125%; ">{{i.title}} {{i.score}}</a><br>
+
+<span style="opacity: 0.7">Posted by <a style="color: grey" href="/profile/{{i.posted_by.userprofile.all.0.uid}}">{{i.posted_by}}</a> {{i.created|timesince}} ago | <a href="/posts/{{i.post_url}}" style="color: grey">{{i.comments.all.count}} comments</a></span><br><br>
+
+</div>
+
+</div> 
+{% endfor %}
+
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a class="btn btn-default" href="?page=1">&laquo; first</a>
+            <a class="btn btn-default" href="?page={{ items.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+            <a class="btn btn-default" href="?page={{ items.next_page_number }}">next</a>
+            <a class="btn btn-default" href="?page={{ items.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+</div>
+
+<div class="col-md-3 panel panel-default"  style="padding: 20; margin-left:5">
+
+<h3> Hi {{request.user|capfirst}}</h3>
+
+<h3>Unsyntax</h3>
+
+Unsyntax is community for geeks, developers, nerds, hackers and software programmers</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

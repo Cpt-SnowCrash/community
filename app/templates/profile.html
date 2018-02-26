@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container panel panel-default " style="padding: 25" >
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div style="font-size: 1000%;  color: white; width: 200; background-color:{{user.userprofile.all.0.bg}};height: 200; text-align: center;">
+{{user|make_list|first|capfirst }}
+</div>
+
+</div>
+
+<div class="col-md-9">
+<h2>{{user.username}}</h2>
+Joined {{user.date_joined|timesince}} ago
+
+
+
+
+
+
+
+
+<h3> Posts </h3>
+
+{% for i in user.items.all %}
+
+<div class="row">
+
+<div class="col-md-1" style="padding-top: 10">
+
+<div style="font-size: 150%;  color: white; width: 30; background-color:{{i.posted_by.userprofile.all.0.bg}}; height: 30; text-align: center;">
+{{i.posted_by|make_list|first|capfirst }}
+</div>
+</div>
+
+
+<div class="col-md-1 " style="">
+
+
+
+<div class="" style="padding: 5">
+
+{% if request.user in i.voters.all %}
+
+<span style="color: red" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{i.votes}}</span>
+
+{% else %}
+<a href="/upvote/{{i.post_url}}/"><span style="color: grey" class="glyphicon glyphicon-chevron-up"></span><span style="font-size: 150%; color:grey"> {{i.votes}}</span></a>
+
+{% endif %}
+
+
+
+
+
+</div>
+</div>
+
+
+<div class="col-md-10"  style="padding-top: 5">
+<a href={{i.url}} style="color: grey; font-size: 125%; ">{{i.title}}</a><br>
+
+<span style="opacity: 0.7">Posted by <a style="color: grey" href="/profile/{{i.posted_by.userprofile.all.0.uid}}">{{i.posted_by}}</a> {{i.created|timesince}} ago | <a href="/posts/{{i.post_url}}" style="color: grey">{{i.comments.all.count}} comments</a></span><br><br>
+
+</div>
+
+</div> 
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+<h3>Comments </h3>
+
+{% for c in user.comments.all %}
+
+
+<div class="row">
+
+<div class="col-md-1">
+<div style="font-size: 150%;  color: white; width: 30; height: 30;  margin-bottom: 20%;background-color:{{c.posted_by.userprofile.all.0.bg}}; text-align: center;">
+{{c.posted_by|make_list|first|capfirst }}
+ </div>
+</div>
+<div class="col-md-11">
+ <b> 
+
+<a style="color: grey" href="/profile/{{c.posted_by.userprofile.all.0.uid}}">{{c.posted_by}}</a></b> wrote on <a style="color: grey" href="/posts/{{c.item.post_url}}">{{c.item.title}}</a> {{c.created|timesince}} ago:<br>
+{{c.content}} 
+</div>
+</div><!-- for row-->
+
+<br>
+
+{% endfor %}
+
+</div>
+
+
+</div>
+
+
+{% endblock %}
