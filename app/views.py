@@ -131,7 +131,7 @@ def calc(request):
 		t = t/3600
 		score = (i.votes*100000 )/t
 		x = 1.1
-		y = 3
+		y = 1.2
 		score = pow(i.votes, y)*100/pow(t, x)
 		#score = int(round(score))
 		i.score = score
