@@ -5,12 +5,7 @@ A Simple Community software built in python/django. Example http://www.unsyntax.
 
 It currently has following Features:
 
-posts
-votes
-ranking algo
-profiles
-comments
-pagination
+posts, user auth, votes, ranking algo, profiles, comments, pagination
 
 To setup:
 create a virtualenv and 
